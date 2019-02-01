@@ -20,40 +20,31 @@ def another_teacher():
 
 @pytest.fixture
 def students():
-    student_list = list()
-    student_list.append(Student('Jimmy', 'Morris'))
-    student_list.append(Student('Miranda', 'Kerr'))
-    student_list.append(Student('Candice', 'Swanepoel'))
-    student_list.append(Student('James', 'Bond'))
-    yield student_list
+    yield [
+        Student('Jimmy', 'Morris'),
+        Student('Miranda', 'Kerr'),
+        Student('Candice', 'Swanepoel'),
+        Student('James', 'Bond')
+    ]
 
 
 @pytest.fixture
 def another_students():
-    student_list = list()
-    student_list.append(Student('Jim', 'Carrey'))
-    student_list.append(Student('James', 'Bond'))
-    student_list.append(Student('Donald', 'Duck'))
-    yield student_list
+    yield [
+        Student('Jim', 'Carrey'),
+        Student('James', 'Bond'),
+        Student('Donald', 'Duck')
+    ]
 
 
 @pytest.fixture
-def math_class():
-    student_list = list()
-    student_list.append(Student('Jim', 'Carrey'))
-    student_list.append(Student('James', 'Bond'))
-    student_list.append(Student('Donald', 'Duck'))
-    yield Class_(name='Math', teacher=Teacher('Gabriel', 'Marces'), students=student_list)
+def math_class(another_students, teacher):
+    yield Class_(name='Math', teacher=teacher, students=another_students)
 
 
 @pytest.fixture
-def arts_class():
-    student_list = list()
-    student_list.append(Student('Jimmy', 'Morris'))
-    student_list.append(Student('Miranda', 'Kerr'))
-    student_list.append(Student('Candice', 'Swanepoel'))
-    student_list.append(Student('James', 'Bond'))
-    yield Class_(name='Arts', teacher=Teacher('Amy', 'Woodberg'), students=student_list)
+def arts_class(students, another_teacher):
+    yield Class_(name='Arts', teacher=another_teacher, students=students)
 
 
 @pytest.fixture
