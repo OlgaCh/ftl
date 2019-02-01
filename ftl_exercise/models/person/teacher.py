@@ -11,15 +11,25 @@ Class behavior:
 """
 
 from ftl_exercise.models.person import Person
+from ftl_exercise.models.quiz.quiz import Quiz
 
 
 class Teacher(Person):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def assign_quiz(self):
+    def create_quiz(self, name, questions):
         """
-        Creates quiz and assign it to class
+        Allow teacher to create new quiz
+        :param topic: str Quiz name
+        :param questions: list of Question - questions (and grades) which needs to be placed in quiz
+        :return: Quiz
+        """
+        return Quiz(name, questions)
+
+    def assign_quiz(self, quiz):
+        """
+        Assign quiz to class teacher teach at.
         :return:
         """
         pass
