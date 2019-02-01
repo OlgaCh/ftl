@@ -13,4 +13,4 @@ class Person():
         self.last_name = last_name
 
     def __str__(self):
-        return ' '.join([self.first_name, self.last_name])
+        return f'{self.first_name} {self.last_name}'
