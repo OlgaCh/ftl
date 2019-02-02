@@ -13,3 +13,8 @@ from ftl_exercise.models.person.teacher import Teacher
 def test_person_has_name(first_name, last_name, cls, name_to_string):
     p = cls(first_name, last_name)
     assert str(p) == name_to_string
+
+
+def test_new_student_has_no_assignments(name='Mary', last_name='Jane'):
+    s = Student(name, last_name)
+    assert len(s.assignments) == 0

@@ -71,3 +71,13 @@ def test_adding_new_option_to_question(name, options, new_option_text, new_optio
 def test_teacher_create_quiz(teacher, quiz_1, questions_list):
     quiz = teacher.create_quiz('Quiz 1', questions_list[:4])
     assert str(quiz) == str(quiz_1)
+
+
+def test_converts_quiz_to_dict(quiz_1):
+    quiz_dict = quiz_1.to_dict()
+    assert quiz_dict == {
+        'A': {'a': 0, 'b': 0.5, 'c': 0.5, 'd': 0},
+        'B': {'a': 1, 'b': 0, 'c': 0, 'd': 0},
+        'C': {'a': 0.33, 'b': 0.34, 'c': 0.33, 'd': 0},
+        'D': {'a': 0.5, 'b': 0, 'c': 0.5, 'd': 0}
+    }

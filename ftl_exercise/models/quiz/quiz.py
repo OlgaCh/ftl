@@ -36,3 +36,24 @@ class Quiz():
         :return: list of Question
         """
         return self.questions
+
+    def get_questions_text(self):
+        """
+        Helper method to return question text only
+        :return: list of str
+        """
+        return [q.get_text() for q in self.questions]
+
+    def get_number_of_questions(self):
+        """
+        Return number of questions which are in the quiz
+        :return: int
+        """
+        return len(self.questions)
+
+    def to_dict(self):
+        """
+        Converts quiz and all it's questions to dict.
+        :return: dict
+        """
+        return {q.get_text(): q.get_options() for q in self.questions}

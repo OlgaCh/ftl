@@ -24,12 +24,12 @@ from ftl_exercise.utils import MAX_ANSWERS, MIN_ANSWERS
 class Question():
     def __init__(self, question_str='', options=None):
         self.question_str = question_str
-        self.options = options if options else []
+        self.options = options if options else {}
 
     def __str__(self):
         nl = '\n'
         return f'Question: {self.question_str}{nl}' \
-               f'Options: {nl.join(list(self.options.keys()))}'
+               f'Options:{nl}{nl.join(list(self.options.keys()))}'
 
     def add_option(self, option_text, option_val):
         """
@@ -63,3 +63,17 @@ class Question():
         :return: bool - True if question valid, False otherwise
         """
         return self.validate_options_cost() and self.validate_options_count()
+
+    def get_text(self):
+        """
+        Return text of a question.
+        :return: str
+        """
+        return self.question_str
+
+    def get_options(self):
+        """
+        Return all options question has
+        :return: dict
+        """
+        return self.options

@@ -12,6 +12,7 @@ Class behavior:
 
 from ftl_exercise.models.person import Person
 from ftl_exercise.models.quiz.quiz import Quiz
+from ftl_exercise.models.study.assignment import Assignment
 
 
 class Teacher(Person):
@@ -27,12 +28,17 @@ class Teacher(Person):
         """
         return Quiz(name, questions)
 
-    def assign_quiz(self, quiz):
+    def assign_quiz(self, quiz, class_):
         """
         Assign quiz to class teacher teach at.
-        :return:
+        For each student of a class we create assignment with a copy of original quiz.
+        Initially quiz has info on how it should be graded. This information provided with quiz data
+        but shouldn't be shown to the student in UI (that part of hidding sensitive data is ommited per now).
+
+        Adds new assignment for the quiz to each student.
         """
-        pass
+        for student in class_.get_students():
+            student.get_new_assignment(Assignment(quiz))
 
     def grade_quiz(self):
         """
