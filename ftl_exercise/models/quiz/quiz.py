@@ -22,12 +22,12 @@ class Quiz():
         return f'Quiz {self.name}. ' \
                f'Questions:{nl}{nl.join([str(q) for q in self.questions])}'
 
-    def add_question(self, question):
+    def get_name(self):
         """
-        Add question to the existing quiz
-        :param question: Question
+        Return name of quiz
+        :return: str
         """
-        self.questions.append(question)
+        return self.name
 
     def get_questions(self):
         """
@@ -35,6 +35,13 @@ class Quiz():
         :return: list of Question
         """
         return self.questions
+
+    def add_question(self, question):
+        """
+        Add question to the existing quiz
+        :param question: Question
+        """
+        self.questions.append(question)
 
     def get_questions_text(self):
         """
@@ -56,10 +63,3 @@ class Quiz():
         :return: dict
         """
         return {q.get_text(): q.get_options() for q in self.questions}
-
-    def get_name(self):
-        """
-        Return name of quiz
-        :return: str
-        """
-        return self.name

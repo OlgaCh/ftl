@@ -17,13 +17,12 @@ class Class_():
         return f'{self.name} class. Teacher - {self.teacher}. ' \
                f'Students: {", ".join([str(s) for s in self.students])}'
 
-    def add_student(self, student):
+    def get_class_name(self):
         """
-        Add student to the class.
-        For sake of simplicity assume that each student in the class is unique.
-        :param student: Student
+        Return name of a given class
+        :return: string
         """
-        self.students.append(student)
+        return self.name
 
     def get_students(self):
         """
@@ -32,13 +31,6 @@ class Class_():
         """
         return self.students
 
-    def assign_teacher(self, teacher):
-        """
-        Assign teacher to a class
-        :param teacher: Teacher
-        """
-        self.teacher = teacher
-
     def get_teacher(self):
         """
         Return teacher of the class
@@ -46,12 +38,20 @@ class Class_():
         """
         return self.teacher
 
-    def get_class_name(self):
+    def add_student(self, student):
         """
-        Return name of a given class
-        :return: string
+        Add student to the class.
+        For sake of simplicity assume that each student in the class is unique.
+        :param student: Student
         """
-        return self.name
+        self.students.append(student)
+
+    def assign_teacher(self, teacher):
+        """
+        Assign teacher to a class
+        :param teacher: Teacher
+        """
+        self.teacher = teacher
 
     def get_total_students(self):
         """

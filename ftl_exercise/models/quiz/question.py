@@ -31,6 +31,20 @@ class Question():
         return f'Question: {self.question_str}{nl}' \
                f'Options:{nl}{nl.join(list(self.options.keys()))}'
 
+    def get_text(self):
+        """
+        Return text of a question.
+        :return: str
+        """
+        return self.question_str
+
+    def get_options(self):
+        """
+        Return all options question has
+        :return: dict
+        """
+        return self.options
+
     def add_option(self, option_text, option_val):
         """
         Adding new option to the existing question
@@ -63,17 +77,3 @@ class Question():
         :return: bool - True if question valid, False otherwise
         """
         return self.validate_options_cost() and self.validate_options_count()
-
-    def get_text(self):
-        """
-        Return text of a question.
-        :return: str
-        """
-        return self.question_str
-
-    def get_options(self):
-        """
-        Return all options question has
-        :return: dict
-        """
-        return self.options

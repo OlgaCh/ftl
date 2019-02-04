@@ -28,14 +28,6 @@ class Semester():
         """
         return self.classes
 
-    def add_class(self, class_):
-        """
-        Adds class to the semester
-        :param class_: Class_
-        :return:
-        """
-        self.classes.append(class_)
-
     def get_students(self):
         """
         Return list of students who take classes in Semester
@@ -45,3 +37,11 @@ class Semester():
         # allow only unique students
         students = list(set(students))
         return students
+
+    def add_class(self, class_):
+        """
+        Adds class to the semester
+        :param class_: Class_
+        :return:
+        """
+        self.classes.append(class_)

@@ -3,7 +3,8 @@ Implements Student class.
 Main properties:
  - first_name (string)
  - last_name (string)
- -
+ - assignments (list) - all assignments which student needs to complete
+ - grades (dict) - grades provided by teacher
 """
 
 from ftl_exercise.models.person import Person

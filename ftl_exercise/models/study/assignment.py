@@ -21,6 +21,13 @@ class Assignment():
         return f'{str(self.quiz)}. {nl}' \
                f'Answers provided:{nl}{json.dumps(self.assignment_answers)}'
 
+    def get_quiz(self):
+        """
+        Return name of quiz
+        :return: str
+        """
+        return self.quiz.get_name()
+
     def is_completed(self):
         """
         Return True if student answer all questions in quiz. False otherwise
@@ -55,10 +62,3 @@ class Assignment():
             quiz_question = quiz_with_answers.get(question)
             grade += sum([quiz_question.get(a) for a in answers])
         return int(grade/total_questions*100)
-
-    def get_quiz(self):
-        """
-        Return name of quiz
-        :return: str
-        """
-        return self.quiz.get_name()
