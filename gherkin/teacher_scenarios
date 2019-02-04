@@ -1,0 +1,33 @@
+Feature: Teaching process
+
+   Scenario: Teacher has students to teach
+   Given the teacher join the class
+   When there are students assigned to the class
+   Then the teacher should teach those students
+     And evaluate their skills by providing quizes
+     And grade quizes completed
+     And build final semester grades based on individual grades.
+
+
+   Scenario: Teacher create and assign quiz
+   Given the teacher
+     And students attending his class
+   When the learning materials are completed by class
+   Then the teacher create quiz
+     And provide the quiz for each student to complete.
+
+   Scenarion: Teacher evaluate quiz
+   Given the teacher create quiz
+     And student complete the quiz
+   Then teacher can evaluate it with <TOP SECRET FORMULA>
+     And provide grade to student.
+
+
+   Scenario: Teacher create semester grades
+   Given semester is being completed
+     And the teacher handle one or multiple classes during semester
+     And the teacher create quiz for each of the classes
+   When all quizes were completed
+   Then teacher can get results
+     And accumulate then per each student attending classes
+     And generate report with final data.

@@ -1,0 +1,35 @@
+Feature: Student joins class
+
+  Scenario: Student has teacher assigned
+   Given the new class creates
+     And the class has teacher assigned
+     And the student joins the class
+   Then student has teacher assigned.
+
+
+Feature: Learning process
+
+   Scenario: Student have a quiz to check the knowledges
+   Given the student attending a class
+   When the teacher provide all required information
+     And the teacher create quiz to check new skills
+   Then student has new assignment
+     And student could answer on the questions at the assignment.
+
+
+   Scenario: Assignment is being worked on
+   Given the student
+     And the assignment created by teacher
+   When student submit first answer on the question
+     And student don't have time to complete it at once
+   Then student could return back to this assignment at any moment
+     And finish remaining questions
+     And student can't edit answers provided before.
+
+
+   Scenario: Student get grade for assignment
+   Given the student completed assignment
+     And the teacher who create that assignment
+   When the teacher finish evaluation process of assignment
+   Then student has assignment grade
+     And this grade counts towards final semester grade.
