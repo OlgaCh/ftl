@@ -17,14 +17,14 @@ once. (Partial submissions can be made).
 for their classes
 
 **Project Structure**
-Project consist of 2 parts: `models` and `tests`.
+Project consist of 2 main parts: `models` and `tests`.
 
 `models` implements basic entities:
 * `Person`, `Student`, `Teacher`;
-* `Answer`, `Question`, `Quiz`;
-* `Semester`, `Class`;
+* `Question`, `Quiz`;
+* `Semester`, `Class`, `Assignment`;
 
-as well as business logic around those.
+as well as logic around those.
 
 `tests` has `pytest` tests in to ensure that all logic works as expected.
 
