@@ -4,8 +4,7 @@ Assumings:
 * each quiz has no end date and could be completed within semester.
 * quiz should be validated as per number of correctly answered questions in relation to overall
   number of questions (converted to %). Thus max grade - 100%.
-* It is ok to round quiz grade to the nearest int number in favor of student, i.e. both 87.2% and 87.8%
-  are converted to 88% grade.
+* we're not penalizing grade if incorrect answer was chosen (whereas ideally should to)
 
 Properties:
 - name (str)
@@ -57,3 +56,10 @@ class Quiz():
         :return: dict
         """
         return {q.get_text(): q.get_options() for q in self.questions}
+
+    def get_name(self):
+        """
+        Return name of quiz
+        :return: str
+        """
+        return self.name

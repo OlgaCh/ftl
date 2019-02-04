@@ -3,6 +3,8 @@ Implements Teacher class.
 Main properties:
  - first_name (string)
  - last_name (string)
+ - quizes (dict) - Dictionary representing all quizes created by this teacher. Quiz name assumed to be unique and
+                   used as a key.
 
 Class behavior:
  - assign_quiz - create quiz for class
@@ -12,12 +14,13 @@ Class behavior:
 
 from ftl_exercise.models.person import Person
 from ftl_exercise.models.quiz.quiz import Quiz
-from ftl_exercise.models.study.assignment import Assignment
 
 
 class Teacher(Person):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        self.quizes = {}
 
     def create_quiz(self, name, questions):
         """
@@ -26,7 +29,9 @@ class Teacher(Person):
         :param questions: list of Question - questions (and grades) which needs to be placed in quiz
         :return: Quiz
         """
-        return Quiz(name, questions)
+        new_quiz = Quiz(name, questions)
+        self.quizes[new_quiz.get_name()] = new_quiz
+        return new_quiz
 
     def assign_quiz(self, quiz, class_):
         """
@@ -38,18 +43,56 @@ class Teacher(Person):
         Adds new assignment for the quiz to each student.
         """
         for student in class_.get_students():
-            student.get_new_assignment(Assignment(quiz))
+            student.get_new_assignment(quiz)
 
-    def grade_quiz(self):
+    def grade_quiz(self, quiz, class_):
         """
         Validate quiz answers provided by students and generate grades
         :return:
         """
-        pass
+        quiz_name = quiz.get_name()
+        for student in class_.get_students():
+            for assignment in student.get_assignments():
+                # Assume that quiz same if name match
+                if assignment.get_quiz() == quiz_name:
+                    grade = assignment.validate_assignment()
+                    self.set_student_grade(student, quiz_name, grade)
+                    break
 
-    def calculate_total_grade_per_student(self):
+    def calculate_total_grade_per_student(self, semester):
         """
-        Create cumulative grade for each student per current semester and course
-        :return:
+        Create cumulative grade for each student per current semester and course.
+        :param semester: Semester - semester for which students needs to be graded
+        :return: list of tuples - each tuple created from student's full name and overall grade
         """
-        pass
+        semester_grades = []
+        seen_students = set()
+        for class_ in semester.get_classes():
+            # Skip classes which not handled by current teacher
+            if str(class_.get_teacher()) != str(self):
+                continue
+            for student in class_.get_students():
+                # Process each student only once
+                if str(student) in seen_students:
+                    continue
+                seen_students.add(str(student))
+                grades_count = 0
+                grades_sum = 0
+                grades = student.student_grades()
+                for grade in grades:
+                    # Grade only quizes created by this teacher.
+                    if grade in self.quizes:
+                        grades_count += 1
+                        grades_sum += grades.get(grade)
+                semester_grades.append((str(student), int(grades_sum/grades_count)))
+        return semester_grades
+
+    def set_student_grade(self, student, quiz_name, grade):
+        """
+        Provide grade to student once assignment completed
+
+        :param student: Student
+        :param quiz_name: str - Quiz which was graded
+        :param grade: int - grade
+        """
+        student.grades[quiz_name] = grade

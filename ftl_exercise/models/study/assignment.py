@@ -55,3 +55,10 @@ class Assignment():
             quiz_question = quiz_with_answers.get(question)
             grade += sum([quiz_question.get(a) for a in answers])
         return int(grade/total_questions*100)
+
+    def get_quiz(self):
+        """
+        Return name of quiz
+        :return: str
+        """
+        return self.quiz.get_name()

@@ -67,8 +67,7 @@ def test_student_can_answer_on_assignment(teacher, quiz, class_, student, answer
     # student doesn't provide any answers yet
     assert assignment.is_completed() is False
     # answers to assignment is recorded
-    for question, answer in answers.items():
-        assignment.record_answer(question, answer)
+    student.record_assignment_answer(assignment, answers)
     assert assignment.is_completed()
 
 
@@ -87,3 +86,31 @@ def test_question_can_be_answered_if_in_quiz(assignment):
 def test_assignment_can_be_graded(assignment):
     grade = assignment.validate_assignment()
     assert grade == 54
+
+
+def test_student_can_make_partial_submissions(teacher, quiz, class_, student, answers):
+    teacher.assign_quiz(quiz, class_)
+    assignment = student.get_assignments()[0]
+    assert assignment.is_completed() is False
+    first_batch = {k: answers[k] for k in ['A', 'B']}
+    second_batch = {k: answers[k] for k in ['C', 'D']}
+    student.record_assignment_answer(assignment, first_batch)
+    # assignment not completed yet
+    assert assignment.is_completed() is False
+    student.record_assignment_answer(assignment, second_batch)
+    # assignment completed
+    assert assignment.is_completed()
+    # Grade is the same
+    grade = assignment.validate_assignment()
+    assert grade == 54
+
+
+def test_teacher_can_grade_assignment(teacher, quiz, class_, student, answers):
+    teacher.assign_quiz(quiz, class_)
+    assignment = student.get_assignments()[0]
+    student.record_assignment_answer(assignment, answers)
+    # student doesn't have any grades yet
+    assert student.student_grades() == {}
+    teacher.grade_quiz(quiz, class_)
+    # student got grade for assignment
+    assert student.student_grades().get(quiz.get_name()) == 54
