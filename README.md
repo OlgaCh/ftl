@@ -35,3 +35,7 @@ To run test suit execute
 
 To check code clarity with flake run
 > flake8
+
+
+Gherkin test cases are placed into `gherkin` directory.
+They cover study process from 2 pov: student and teacher.
